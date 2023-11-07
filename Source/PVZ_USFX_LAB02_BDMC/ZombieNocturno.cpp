@@ -36,15 +36,13 @@ void AZombieNocturno::TransformacionNoche()
 
 		if (!Tiempo.Compare("Dia"))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow,FString::Printf(TEXT("Es de %s, Los zombies nocturnos no pueden usar sus poderes"), *Tiempo));
-			Velocidad = 0.0f;
+			Velocidad = 0.2f;
 		}
 
 
 		else if (!Tiempo.Compare("Noche"))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, FString::Printf(TEXT("Es de %s, Los zombies nocturnos estan mas feroces que nunca! Huye!"), *Tiempo));
-			Velocidad = 5.0f;
+			Velocidad = 2.0f;
 		}
 }
 

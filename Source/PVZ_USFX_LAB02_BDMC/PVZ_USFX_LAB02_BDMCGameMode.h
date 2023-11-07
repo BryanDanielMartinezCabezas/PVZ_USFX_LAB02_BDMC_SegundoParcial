@@ -34,6 +34,9 @@ public:
 	FTimerHandle TiempoParaNoche;
 	FTimerHandle TiempoParaDia;
 	FTimerHandle TemporizadorGenerarNocturno;
+	FTimerHandle TemporizadorGenerarHombreLobo;
+	FTimerHandle TemporizadorGenerarFantasma;
+	FTimerHandle TemporizadorGenerarVampiro;
 	FVector contador;
 	FVector localizacion;
 public:
@@ -56,6 +59,9 @@ public:
 	void GenerarZombieCubo();
 	void GenerarZombieCono();
 	void GenerarZombieNocturno();
+	void GenerarZombieVampiro();
+	void GenerarZombieHombreLobo();
+	void GenerarZombieFantasma();
 	void DefinirNoche();
 	void DefinirDia();
 	void aumentovelocidad();

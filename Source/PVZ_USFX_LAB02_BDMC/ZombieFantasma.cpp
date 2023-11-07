@@ -1,18 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ZombieVampiro.h"
+#include "ZombieFantasma.h"
 #include "ZombieNocturno.h"
 
-
-
-AZombieVampiro::AZombieVampiro()
+AZombieFantasma::AZombieFantasma()
 {
-	VelocidadX = 0.2f;
-	VelocidadZ = 0.2f;
+
 }
 
-void AZombieVampiro::TransformacionNoche()
+void AZombieFantasma::TransformacionNoche()
 {
 
 	//Log Error if its Clock Tower is NULL
@@ -23,30 +20,20 @@ void AZombieVampiro::TransformacionNoche()
 	//Get the current time of the Clock Tower
 	FString Tiempo = Luna->GetTiempo();
 
+
 	if (!Tiempo.Compare("Dia"))
 	{
 		Velocidad = 0.0f;
-
-		FVector LocalizacionActual = this->GetActorLocation();
-		this->SetActorLocation(FVector(LocalizacionActual.X, LocalizacionActual.Y, LocalizacionActual.Z + 500));
+		this->SetActorHiddenInGame(true);
+		this->SetActorEnableCollision(false);
 	}
 
 
 	else if (!Tiempo.Compare("Noche"))
 	{
-		Velocidad = 5.0f;
+		this->SetActorHiddenInGame(false);
+		this->SetActorEnableCollision(true);
+		Velocidad = 0.1f;
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -35,14 +35,6 @@ void AZombie::BeginPlay()
 void AZombie::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	FVector LocalizacionObjetivo = FVector(-800.0f, -600.0f, 160.0f); // Cambia la ubicación objetivo según tus necesidades
-	// Calcula la dirección y distancia al objetivo
-	FVector Direccion = LocalizacionObjetivo - FVector(-800.0f, 400.0f, 160.0f);
-	// Calcula la distancia de al objetivo
-	float DistanciaAlObjetivo = FVector::Dist(LocalizacionObjetivo, this->GetActorLocation());
-
-	// Calcula el desplazamiento en este frame
 	float DeltaMove = Velocidad * GetWorld()->DeltaTimeSeconds;
 
 	if (DeltaMove > DistanciaAlObjetivo)

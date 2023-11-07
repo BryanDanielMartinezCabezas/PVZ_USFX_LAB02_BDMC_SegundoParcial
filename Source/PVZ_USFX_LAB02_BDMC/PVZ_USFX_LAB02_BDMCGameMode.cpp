@@ -15,6 +15,11 @@
 #include "ZombieNocturno.h"
 #include "Luna.h"
 #include "ZombieVampiro.h"
+#include "ZombieFantasma.h"
+#include "ZombieHombreLobo.h"
+#include <cstdlib>
+#include <ctime>
+#include "AnunciadorDiaNoche.h"
 APVZ_USFX_LAB02_BDMCGameMode::APVZ_USFX_LAB02_BDMCGameMode()
 {
 	// set default pawn class to our character class
@@ -55,11 +60,33 @@ void APVZ_USFX_LAB02_BDMCGameMode::BeginPlay()
 	//ZombieNocturno->DefinirZombieNoc(Luna);
 
 
-	AZombieVampiro* ZombieVampiro = GetWorld()->SpawnActor<AZombieVampiro>(AZombieVampiro::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
-	ZombieVampiro->DefinirZombieNoc(Luna);
+	//AZombieVampiro* ZombieVampiro = GetWorld()->SpawnActor<AZombieVampiro>(AZombieVampiro::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+	//ZombieVampiro->DefinirZombieNoc(Luna);
 
-	/*GetWorldTimerManager().SetTimer(TemporizadorGenerarNocturno, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieNocturno, 1.0f, false);*/
 
+	AAnunciadorDiaNoche* AnunciadorDiaNoche = GetWorld()->SpawnActor<AAnunciadorDiaNoche>(AAnunciadorDiaNoche::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+	AnunciadorDiaNoche->SetActorHiddenInGame(true);
+	AnunciadorDiaNoche->DefinirZombieNoc(Luna);
+
+
+
+	GetWorldTimerManager().SetTimer(TemporizadorGenerarNocturno, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieNocturno, 1.0f, false);
+	GetWorldTimerManager().SetTimer(TemporizadorGenerarHombreLobo, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieHombreLobo, 1.5f, false);
+	GetWorldTimerManager().SetTimer(TemporizadorGenerarVampiro, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieVampiro, 2.0f, false);
+	GetWorldTimerManager().SetTimer(TemporizadorGenerarFantasma, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieFantasma, 3.0f, false);
+
+
+
+
+
+	//GetWorldTimerManager().SetTimer(TemporizadorGenerarHorda, this, &APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieVampiro, 1.0f, true);
+	/*GenerarZombieVampiro();*/
+
+	//AZombieFantasma* ZombieFantasma = GetWorld()->SpawnActor<AZombieFantasma>(AZombieFantasma::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+	//ZombieFantasma->DefinirZombieNoc(Luna);
+
+	//AZombieHombreLobo* ZombieHombreLobo = GetWorld()->SpawnActor<AZombieHombreLobo>(AZombieHombreLobo::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+	//ZombieHombreLobo->DefinirZombieNoc(Luna);
 
 	GetWorldTimerManager().SetTimer(TiempoParaDia, this, &APVZ_USFX_LAB02_BDMCGameMode::DefinirDia, 5.0f, false);
 
@@ -142,8 +169,49 @@ void APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieNocturno()
 		ZombiesNocturnos.Add(NuevoZombieNocturno);
 	}
 }
+void APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieVampiro()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		FVector SpawnLocationZombie = FVector(-800.0f + i * 100.0f, 0.0f, 160.0f);
+		AZombieVampiro* NuevoZombieVampiro = GetWorld()->SpawnActor<AZombieVampiro>(AZombieVampiro::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
 
+		// Suscribir el ZombieNocturno a Luna como observador
+		NuevoZombieVampiro->DefinirZombieNoc(Luna);
 
+		// Agregar el ZombieNocturno a la lista de observadores (si es necesario)
+		ZombiesNocturnos.Add(NuevoZombieVampiro);
+	}
+}
+
+void APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieFantasma()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		FVector SpawnLocationZombie = FVector(-800.0f + i * 100.0f, 0.0f, 160.0f);
+		AZombieFantasma* NuevoZombieFantasma = GetWorld()->SpawnActor<AZombieFantasma>(AZombieFantasma::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+
+		// Suscribir el ZombieNocturno a Luna como observador
+		NuevoZombieFantasma->DefinirZombieNoc(Luna);
+
+		// Agregar el ZombieNocturno a la lista de observadores (si es necesario)
+		ZombiesNocturnos.Add(NuevoZombieFantasma);
+	}
+}
+void APVZ_USFX_LAB02_BDMCGameMode::GenerarZombieHombreLobo()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		FVector SpawnLocationZombie = FVector(-800.0f + i * 100.0f, 0.0f, 160.0f);
+		AZombieHombreLobo* NuevoZombieHombreLobo = GetWorld()->SpawnActor<AZombieHombreLobo>(AZombieHombreLobo::StaticClass(), SpawnLocationZombie, FRotator::ZeroRotator);
+
+		// Suscribir el ZombieNocturno a Luna como observador
+		NuevoZombieHombreLobo->DefinirZombieNoc(Luna);
+
+		// Agregar el ZombieNocturno a la lista de observadores (si es necesario)
+		ZombiesNocturnos.Add(NuevoZombieHombreLobo);
+	}
+}
 // PARTE DEL EXAMEN PARTE DEL EXAMEN  DE LABORATORIO PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN PARTE DEL EXAMEN
 void APVZ_USFX_LAB02_BDMCGameMode::GenerarHordaDeZombies()
 {

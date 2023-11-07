@@ -5,22 +5,20 @@
 #include "CoreMinimal.h"
 #include "ZombieNocturno.h"
 #include "Luna.h"
-#include "ZombieVampiro.generated.h"
+#include "ZombieFantasma.generated.h"
 
 
-class ALuna;
 /**
  * 
  */
 UCLASS()
-class PVZ_USFX_LAB02_BDMC_API AZombieVampiro : public AZombieNocturno
+class PVZ_USFX_LAB02_BDMC_API AZombieFantasma : public AZombieNocturno
 {
 	GENERATED_BODY()
+private:
+	AZombieFantasma();
 public:
-	AZombieVampiro();
 
-public:
 	virtual void TransformacionNoche() override;
+	
 };
-
-
